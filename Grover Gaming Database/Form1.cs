@@ -1,41 +1,40 @@
 ﻿using LiteDB;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace Grover_Gaming_Database
 {
     public partial class homePage : Form
     {
-        List<Employee> employees = new List<Employee>();
-
+         
+        LiteDatabase db = new LiteDatabase("EmployeeData.db");
+        BindingSource bindingSource1 = new BindingSource();
+        int currentSort = 1;
         public homePage()
         {
             InitializeComponent();
 
 
+
+
+
+
+            ILiteCollection<Employee> col = db.GetCollection<Employee>("employees");
             
-
-            using (var db = new LiteDatabase(@"C:\users\eamon\games\EmployeeData.db"))
-            {
-                var col = db.GetCollection<Employee>("employees");
-
-                employees = col.Query().ToList();
-            }
+            
             UpdateList();
 
 
 
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void AddButton_Click(object sender, EventArgs e)
         {
             using (AddForm addform = new AddForm(this))
             {
-                if (addform.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-                {
-                    employeeList.Items.Clear();
-                }
+                addform.ShowDialog();
             }
 
         }
@@ -43,76 +42,152 @@ namespace Grover_Gaming_Database
 
         public void UpdateList()
         {
-            employeeList.Items.Clear();
-            using (var db = new LiteDatabase(@"C:\users\eamon\games\EmployeeData.db"))
+            List<Employee> employees = new List<Employee>();
+            ILiteCollection<Employee> col = db.GetCollection<Employee>("employees");
+
+            switch (currentSort)
             {
+                case 1:
+                    dataGridView1.DataSource = (List<Employee>)col.Query().OrderBy(x => x.name).ToList();
+                    dataGridView1.Columns[0].HeaderText = "Name ↓";
+                    dataGridView1.Columns[1].HeaderText = "Job Title";
+                    break;
+                case 2:
+                    dataGridView1.DataSource = (List<Employee>)col.Query().OrderByDescending(x => x.name).ToList();
+                    dataGridView1.Columns[0].HeaderText = "Name ↑";
+                    dataGridView1.Columns[1].HeaderText = "Job Title";
+                    break;
+                case 3:
+                    dataGridView1.DataSource = (List<Employee>)col.Query().OrderBy(x => x.jobTitle).ToList();
+                    dataGridView1.Columns[0].HeaderText = "Name";
+                    dataGridView1.Columns[1].HeaderText = "Job Title ↓";
+                    break;
+                case 4:
+                    dataGridView1.DataSource = (List<Employee>)col.Query().OrderByDescending(x => x.jobTitle).ToList();
+                    dataGridView1.Columns[0].HeaderText = "Name";
+                    dataGridView1.Columns[1].HeaderText = "Job Title ↑";
+                    break;
+                default:
+                    MessageBox.Show("An error has occured, please restart the program", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    break;
+                    
 
-                var col = db.GetCollection<Employee>("employees");
-                col.DeleteAll();
 
-                foreach (Employee employee in employees)
-                {
-                    string[] employeeArray = employee.ToArray();
-                    var listViewItem = new ListViewItem(employeeArray);
-                    employeeList.Items.Add(listViewItem);
-                    col.Insert(employee);
-                }
 
-                List<Employee> emp2 = col.Query().ToList();
-                Console.WriteLine("hello world");
             }
-
         }
 
         public void AddEmployee(Employee newEmployee)
         {
-            employees.Add(newEmployee);
-            UpdateList();
-        }
+            ILiteCollection<Employee> col = db.GetCollection<Employee>("employees");
 
-        public void RemoveEmployee(int index)
-        {
-            employees.RemoveAt(index);
-            UpdateList();
-        }
+            DialogResult result = DialogResult.Yes;
 
-        private void button2_Click(object sender, EventArgs e)
-        {
-            int selected = -1;
-            if (employeeList.SelectedItems.Count > 0)
+
+
+            
+            if (col.FindOne(x => x.name == newEmployee.name) != null)
             {
-                selected = employeeList.Items.IndexOf(employeeList.SelectedItems[0]);
-                Employee employeeToDelete = employees[selected];
-                DialogResult result = MessageBox.Show("Are you sure you want to delete the entry for " + employeeToDelete.name + ", " + employeeToDelete.jobTitle, "Delete Entry", MessageBoxButtons.OKCancel, MessageBoxIcon.Hand);
-                if (result == DialogResult.OK)
-                { RemoveEmployee(selected); }
-                
+                result = MessageBox.Show("An employee by the name " + newEmployee.name + " already exists, would you like to continue?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
             }
+            
+            if (result == DialogResult.Yes)
+            {
+                col.Insert(newEmployee);
+                MessageBox.Show("New employee \"" + newEmployee.toString() + "\" sucessfully added", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                UpdateList();
+            }
+            
         }
 
-        private void mainEditButton_Click(object sender, EventArgs e)
+        public void RemoveEmployee(Employee employee)
         {
-            int selected = -1;
-            if (employeeList.SelectedItems.Count > 0)
-            {
-                selected = employeeList.Items.IndexOf(employeeList.SelectedItems[0]);
-                Employee employeeToEdit = employees[selected];
-                using (EditForm editform = new EditForm(this, employeeToEdit, selected))
+            ILiteCollection<Employee> col = db.GetCollection<Employee>("employees");
+            col.Delete(employee.Id);
+            UpdateList();
+        }
+
+        private void DeleteButton_Click(object sender, EventArgs e)
+        {
+
+            if (dataGridView1.SelectedRows.Count == 1)
+            { 
+            var index = dataGridView1.SelectedRows[0];
+
+
+            Employee employeeToDelete = (Employee)index.DataBoundItem;
+            //Employee employeeToDelete = employees[employeeList.SelectedIndices[0]];
+
+            Console.WriteLine("hello");
+                DialogResult result = MessageBox.Show("Are you sure you want to delete the entry for " + employeeToDelete.toString(), "Delete Entry", MessageBoxButtons.OKCancel, MessageBoxIcon.Hand) ;
+                if (result == DialogResult.OK)
                 {
-                    editform.ShowDialog();
+                    RemoveEmployee(employeeToDelete);
+                    MessageBox.Show("Entry \"" + employeeToDelete.toString() + "\" successfully deleted", "Delete Sucessful", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                
+        }
+        }
+
+        private void EditButton_Click(object sender, EventArgs e)
+        {
+
+            if (true)
+            {
+                if (dataGridView1.SelectedRows.Count == 1)
+                {
+                    var selectedRow = dataGridView1.SelectedRows[0];
+                    Employee employeeToEdit = (Employee)selectedRow.DataBoundItem;
+                    using (EditForm editform = new EditForm(this, employeeToEdit))
+                    {
+                        editform.ShowDialog();
+                    }
                 }
             }
-            
         }
 
-        public void EditEmployee(int index, Employee employee) {
-            employees[index] = employee;
-            UpdateList();
+        public void EditEmployee(Employee newEmployee, Employee oldEmployee) {
+
+
+            String editsMade = "";
+            if (!oldEmployee.name.Equals(newEmployee.name))
+                editsMade += "\nName: " + oldEmployee.name + " -> " + newEmployee.name;
+            if (!oldEmployee.jobTitle.Equals(newEmployee.jobTitle))
+                editsMade += "\nJob Title: " + oldEmployee.jobTitle + " -> " + newEmployee.jobTitle;
+
+
+            if (!(editsMade == ""))
+            {
+                ILiteCollection<Employee> col = db.GetCollection<Employee>("employees");
+                col.Update(newEmployee);
+                MessageBox.Show("The following edits have been made successfully:" + editsMade, "Edit Successful!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                UpdateList();
+            }
         }
 
-        private void employeeList_ColumnClick(object sender, ColumnClickEventArgs e)
+ 
+
+        private void dataGridView1_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
-            
+            if (e.ColumnIndex == 0 )
+            {
+                if (currentSort == 1)
+                    currentSort++;
+                else
+                    currentSort = 1;
+            }
+            else if  (e.ColumnIndex == 1)
+            {
+                if (currentSort == 3)
+                    currentSort++;
+                else
+                    currentSort = 3;
+            }
+            else
+                MessageBox.Show("An error has occured, please restart the program", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+            UpdateList();
+
         }
     }
 }

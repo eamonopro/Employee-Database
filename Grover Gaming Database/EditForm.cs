@@ -12,16 +12,17 @@ namespace Grover_Gaming_Database
 {
     public partial class EditForm : Form
     {
+        
         private homePage _form1;
-        private int index;
-        public EditForm(homePage form1, Employee employee, int empIndex)
+        private Employee employeeToEdit;
+        public EditForm(homePage form1, Employee employee)
         {
             
-            InitializeComponent();
-            index = empIndex;
+            InitializeComponent();           
             _form1 = form1;
+            employeeToEdit = employee;
             editNameBox.Text = employee.name;
-            editJobBox.Text = employee.name;
+            editJobBox.Text = employee.jobTitle;
             EditJobWarning.Hide();
             EditNameWarning.Hide();
             
@@ -34,7 +35,10 @@ namespace Grover_Gaming_Database
             EditJobWarning.Hide();
             if (editNameBox.TextLength > 0 && editJobBox.TextLength > 0) 
             {
-                _form1.EditEmployee(index, new Employee(editNameBox.Text, editJobBox.Text));
+                 Employee editedEmployee = new Employee(editNameBox.Text, editJobBox.Text);
+                editedEmployee.Id = employeeToEdit.Id;
+
+                 _form1.EditEmployee( editedEmployee, employeeToEdit);
                 this.Close();
             }
             if (editNameBox.TextLength == 0)
@@ -48,5 +52,7 @@ namespace Grover_Gaming_Database
         {
             this.Close();
         }
+
+        
     }
 }
