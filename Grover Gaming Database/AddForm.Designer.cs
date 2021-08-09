@@ -44,7 +44,7 @@ namespace Grover_Gaming_Database
             this.addNameBox.Location = new System.Drawing.Point(56, 17);
             this.addNameBox.Name = "addNameBox";
             this.addNameBox.Size = new System.Drawing.Size(132, 20);
-            this.addNameBox.TabIndex = 3;
+            this.addNameBox.TabIndex = 1;
             this.addNameBox.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
             // 
             // addNameLabel
@@ -78,7 +78,7 @@ namespace Grover_Gaming_Database
             this.addOkayButton.Location = new System.Drawing.Point(188, 115);
             this.addOkayButton.Name = "addOkayButton";
             this.addOkayButton.Size = new System.Drawing.Size(132, 39);
-            this.addOkayButton.TabIndex = 4;
+            this.addOkayButton.TabIndex = 3;
             this.addOkayButton.Text = "Confirm";
             this.addOkayButton.UseVisualStyleBackColor = true;
             this.addOkayButton.Click += new System.EventHandler(this.button1_Click);
@@ -108,13 +108,14 @@ namespace Grover_Gaming_Database
             this.addCancelButton.Location = new System.Drawing.Point(12, 115);
             this.addCancelButton.Name = "addCancelButton";
             this.addCancelButton.Size = new System.Drawing.Size(132, 39);
-            this.addCancelButton.TabIndex = 7;
+            this.addCancelButton.TabIndex = 4;
             this.addCancelButton.Text = "Cancel";
             this.addCancelButton.UseVisualStyleBackColor = true;
             this.addCancelButton.Click += new System.EventHandler(this.addCancelButton_Click);
             // 
             // AddForm
             // 
+            this.AcceptButton = this.addOkayButton;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(332, 176);

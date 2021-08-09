@@ -44,7 +44,7 @@ namespace Grover_Gaming_Database
             this.editOkayButton.Location = new System.Drawing.Point(188, 115);
             this.editOkayButton.Name = "editOkayButton";
             this.editOkayButton.Size = new System.Drawing.Size(132, 39);
-            this.editOkayButton.TabIndex = 0;
+            this.editOkayButton.TabIndex = 3;
             this.editOkayButton.Text = "Confirm";
             this.editOkayButton.UseVisualStyleBackColor = true;
             this.editOkayButton.Click += new System.EventHandler(this.editOkayButton_Click);
@@ -54,7 +54,7 @@ namespace Grover_Gaming_Database
             this.editCancelButton.Location = new System.Drawing.Point(12, 115);
             this.editCancelButton.Name = "editCancelButton";
             this.editCancelButton.Size = new System.Drawing.Size(132, 39);
-            this.editCancelButton.TabIndex = 1;
+            this.editCancelButton.TabIndex = 4;
             this.editCancelButton.Text = "Cancel";
             this.editCancelButton.UseVisualStyleBackColor = true;
             this.editCancelButton.Click += new System.EventHandler(this.editCancelButton_Click);
@@ -64,14 +64,14 @@ namespace Grover_Gaming_Database
             this.editNameBox.Location = new System.Drawing.Point(56, 17);
             this.editNameBox.Name = "editNameBox";
             this.editNameBox.Size = new System.Drawing.Size(132, 20);
-            this.editNameBox.TabIndex = 2;
+            this.editNameBox.TabIndex = 1;
             // 
             // editJobBox
             // 
             this.editJobBox.Location = new System.Drawing.Point(56, 56);
             this.editJobBox.Name = "editJobBox";
             this.editJobBox.Size = new System.Drawing.Size(132, 20);
-            this.editJobBox.TabIndex = 3;
+            this.editJobBox.TabIndex = 2;
             // 
             // EditNameWarning
             // 
@@ -111,6 +111,7 @@ namespace Grover_Gaming_Database
             // 
             // EditForm
             // 
+            this.AcceptButton = this.editOkayButton;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(332, 176);

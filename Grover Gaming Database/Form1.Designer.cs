@@ -29,12 +29,20 @@ namespace Grover_Gaming_Database
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.mainAddButton = new System.Windows.Forms.Button();
-            this.employeeList = new System.Windows.Forms.ListView();
-            this.name = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.jobTitle = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.mainDeleteButton = new System.Windows.Forms.Button();
             this.mainEditButton = new System.Windows.Forms.Button();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.jobTitleDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.employeeBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.homePageBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.employeeBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.homePageBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // mainAddButton
@@ -45,34 +53,7 @@ namespace Grover_Gaming_Database
             this.mainAddButton.TabIndex = 3;
             this.mainAddButton.Text = "Add New Employee";
             this.mainAddButton.UseVisualStyleBackColor = true;
-            this.mainAddButton.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // employeeList
-            // 
-            this.employeeList.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.name,
-            this.jobTitle});
-            this.employeeList.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.employeeList.FullRowSelect = true;
-            this.employeeList.GridLines = true;
-            this.employeeList.Location = new System.Drawing.Point(12, 12);
-            this.employeeList.MultiSelect = false;
-            this.employeeList.Name = "employeeList";
-            this.employeeList.Size = new System.Drawing.Size(776, 330);
-            this.employeeList.TabIndex = 1;
-            this.employeeList.UseCompatibleStateImageBehavior = false;
-            this.employeeList.View = System.Windows.Forms.View.Details;
-            this.employeeList.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.employeeList_ColumnClick);
-            // 
-            // name
-            // 
-            this.name.Text = "Name";
-            this.name.Width = 268;
-            // 
-            // jobTitle
-            // 
-            this.jobTitle.Text = "Job Title";
-            this.jobTitle.Width = 504;
+            this.mainAddButton.Click += new System.EventHandler(this.AddButton_Click);
             // 
             // mainDeleteButton
             // 
@@ -84,7 +65,7 @@ namespace Grover_Gaming_Database
             this.mainDeleteButton.TabIndex = 1;
             this.mainDeleteButton.Text = "Delete Employee";
             this.mainDeleteButton.UseVisualStyleBackColor = true;
-            this.mainDeleteButton.Click += new System.EventHandler(this.button2_Click);
+            this.mainDeleteButton.Click += new System.EventHandler(this.DeleteButton_Click);
             // 
             // mainEditButton
             // 
@@ -94,19 +75,87 @@ namespace Grover_Gaming_Database
             this.mainEditButton.TabIndex = 2;
             this.mainEditButton.Text = "Edit Employee";
             this.mainEditButton.UseVisualStyleBackColor = true;
-            this.mainEditButton.Click += new System.EventHandler(this.mainEditButton_Click);
+            this.mainEditButton.Click += new System.EventHandler(this.EditButton_Click);
+            // 
+            // dataGridView1
+            // 
+            this.dataGridView1.AllowUserToAddRows = false;
+            this.dataGridView1.AllowUserToDeleteRows = false;
+            this.dataGridView1.AllowUserToResizeColumns = false;
+            this.dataGridView1.AllowUserToResizeRows = false;
+            this.dataGridView1.AutoGenerateColumns = false;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            this.dataGridView1.ColumnHeadersHeight = 35;
+            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridViewTextBoxColumn1,
+            this.jobTitleDataGridViewTextBoxColumn});
+            this.dataGridView1.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.dataGridView1.DataSource = this.employeeBindingSource;
+            this.dataGridView1.EnableHeadersVisualStyles = false;
+            this.dataGridView1.Location = new System.Drawing.Point(12, 12);
+            this.dataGridView1.MultiSelect = false;
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.ReadOnly = true;
+            this.dataGridView1.RowHeadersVisible = false;
+            this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridView1.Size = new System.Drawing.Size(776, 330);
+            this.dataGridView1.TabIndex = 4;
+            this.dataGridView1.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView1_ColumnHeaderMouseClick);
+            // 
+            // dataGridViewTextBoxColumn1
+            // 
+            this.dataGridViewTextBoxColumn1.DataPropertyName = "name";
+            this.dataGridViewTextBoxColumn1.HeaderText = "Name";
+            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            this.dataGridViewTextBoxColumn1.ReadOnly = true;
+            this.dataGridViewTextBoxColumn1.Width = 386;
+            // 
+            // jobTitleDataGridViewTextBoxColumn
+            // 
+            this.jobTitleDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.jobTitleDataGridViewTextBoxColumn.DataPropertyName = "jobTitle";
+            this.jobTitleDataGridViewTextBoxColumn.HeaderText = "Job Title";
+            this.jobTitleDataGridViewTextBoxColumn.Name = "jobTitleDataGridViewTextBoxColumn";
+            this.jobTitleDataGridViewTextBoxColumn.ReadOnly = true;
+            this.jobTitleDataGridViewTextBoxColumn.Width = 386;
+            // 
+            // employeeBindingSource
+            // 
+            this.employeeBindingSource.DataSource = typeof(Grover_Gaming_Database.Employee);
+            // 
+            // homePageBindingSource
+            // 
+            this.homePageBindingSource.DataSource = typeof(Grover_Gaming_Database.homePage);
+            // 
+            // notifyIcon1
+            // 
+            this.notifyIcon1.BalloonTipIcon = System.Windows.Forms.ToolTipIcon.Info;
+            this.notifyIcon1.BalloonTipText = "Test";
+            this.notifyIcon1.BalloonTipTitle = "Hello";
+            this.notifyIcon1.Text = "notifyIcon1";
+            this.notifyIcon1.Visible = true;
             // 
             // homePage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.mainEditButton);
             this.Controls.Add(this.mainDeleteButton);
-            this.Controls.Add(this.employeeList);
             this.Controls.Add(this.mainAddButton);
             this.Name = "homePage";
             this.Text = "Employee Database";
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.employeeBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.homePageBindingSource)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -114,11 +163,15 @@ namespace Grover_Gaming_Database
         #endregion
 
         private System.Windows.Forms.Button mainAddButton;
-        private System.Windows.Forms.ListView employeeList;
-        private System.Windows.Forms.ColumnHeader name;
-        private System.Windows.Forms.ColumnHeader jobTitle;
         private System.Windows.Forms.Button mainDeleteButton;
         private System.Windows.Forms.Button mainEditButton;
+        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.BindingSource homePageBindingSource;
+        private System.Windows.Forms.BindingSource employeeBindingSource;
+        
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn jobTitleDataGridViewTextBoxColumn;
+        private System.Windows.Forms.NotifyIcon notifyIcon1;
     }
 }
 
