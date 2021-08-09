@@ -8,23 +8,16 @@ namespace Grover_Gaming_Database
         private homePage _form1;
         public AddForm(homePage form1)
         {
-            
             _form1 = form1;
-            InitializeComponent();
+            InitializeComponent();   
+            //the 2 warning labels, must be hidden on start
             addNameWarning.Hide();
             addJobWarning.Hide();
         }
-
-        private void textBox2_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
+        /*
+         * if both text boxes are filled, triggers the AddEmployee function
+         * if either text box is empty, displays the relevant error label
+         */
         private void button1_Click(object sender, EventArgs e)
         {
             addNameWarning.Hide();
@@ -43,20 +36,10 @@ namespace Grover_Gaming_Database
             if (addJobBox.TextLength == 0)
                 addJobWarning.Show();
         }
-
-        private void AddNameWarning_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void addJobWarning_Click(object sender, EventArgs e)
-        {
-
-        }
-
+        //closes the addform
         private void addCancelButton_Click(object sender, EventArgs e)
         {
-
+            this.Close();
         }
     }
 }

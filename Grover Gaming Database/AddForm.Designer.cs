@@ -29,6 +29,7 @@ namespace Grover_Gaming_Database
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.addNameBox = new System.Windows.Forms.TextBox();
             this.addNameLabel = new System.Windows.Forms.Label();
             this.addJobLabel = new System.Windows.Forms.Label();
@@ -37,6 +38,7 @@ namespace Grover_Gaming_Database
             this.addNameWarning = new System.Windows.Forms.Label();
             this.addJobWarning = new System.Windows.Forms.Label();
             this.addCancelButton = new System.Windows.Forms.Button();
+            this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
             this.SuspendLayout();
             // 
             // addNameBox
@@ -45,7 +47,6 @@ namespace Grover_Gaming_Database
             this.addNameBox.Name = "addNameBox";
             this.addNameBox.Size = new System.Drawing.Size(132, 20);
             this.addNameBox.TabIndex = 1;
-            this.addNameBox.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
             // 
             // addNameLabel
             // 
@@ -71,7 +72,6 @@ namespace Grover_Gaming_Database
             this.addJobBox.Name = "addJobBox";
             this.addJobBox.Size = new System.Drawing.Size(132, 20);
             this.addJobBox.TabIndex = 2;
-            this.addJobBox.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // addOkayButton
             // 
@@ -91,7 +91,6 @@ namespace Grover_Gaming_Database
             this.addNameWarning.Size = new System.Drawing.Size(134, 13);
             this.addNameWarning.TabIndex = 5;
             this.addNameWarning.Text = "This field cannot be empty!";
-            this.addNameWarning.Click += new System.EventHandler(this.AddNameWarning_Click);
             // 
             // addJobWarning
             // 
@@ -101,7 +100,6 @@ namespace Grover_Gaming_Database
             this.addJobWarning.Size = new System.Drawing.Size(134, 13);
             this.addJobWarning.TabIndex = 6;
             this.addJobWarning.Text = "This field cannot be empty!";
-            this.addJobWarning.Click += new System.EventHandler(this.addJobWarning_Click);
             // 
             // addCancelButton
             // 
@@ -112,6 +110,11 @@ namespace Grover_Gaming_Database
             this.addCancelButton.Text = "Cancel";
             this.addCancelButton.UseVisualStyleBackColor = true;
             this.addCancelButton.Click += new System.EventHandler(this.addCancelButton_Click);
+            // 
+            // notifyIcon1
+            // 
+            this.notifyIcon1.Text = "notifyIcon1";
+            this.notifyIcon1.Visible = true;
             // 
             // AddForm
             // 
@@ -146,5 +149,6 @@ namespace Grover_Gaming_Database
         private System.Windows.Forms.Label addNameWarning;
         private System.Windows.Forms.Label addJobWarning;
         private System.Windows.Forms.Button addCancelButton;
+        private System.Windows.Forms.NotifyIcon notifyIcon1;
     }
 }

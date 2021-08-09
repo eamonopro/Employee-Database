@@ -20,6 +20,8 @@ namespace Grover_Gaming_Database
             
             InitializeComponent();           
             _form1 = form1;
+
+            //populates the text boxes with the name and job title of the employee that is being edited
             employeeToEdit = employee;
             editNameBox.Text = employee.name;
             editJobBox.Text = employee.jobTitle;
@@ -28,7 +30,10 @@ namespace Grover_Gaming_Database
             
 
         }
-
+        /*
+         * if both text boxes are filled, triggers the EditEmployee function
+         * if either are empty, displays the relevant error label
+         */
         private void editOkayButton_Click(object sender, EventArgs e)
         {
             EditNameWarning.Hide();
@@ -47,7 +52,7 @@ namespace Grover_Gaming_Database
             if (editJobBox.TextLength == 0)
                 EditJobWarning.Show();
         }
-
+        //closes the edit form
         private void editCancelButton_Click(object sender, EventArgs e)
         {
             this.Close();

@@ -2,28 +2,30 @@
 
 namespace Grover_Gaming_Database
 {
-    public class Employee : IComparable
+   
+    public class Employee
     {
+        
+
         public int Id { get; set; }
         public String jobTitle { get; set; }
         public String name { get; set; }
+
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="name">Employee Name</param>
+        /// <param name="jobTitle">Employee job title</param>
         public Employee(string name, string jobTitle)
         {
             this.jobTitle = jobTitle;
             this.name = name;
         }
+        
+      
 
-        public String[] ToArray()
-        {
-            string[] stringArray = { this.name, this.jobTitle };
-            return stringArray;
-        }
-
-        public int CompareTo(object obj)
-        {
-            return name.CompareTo(obj);
-        }
-
+     
+        // returns a readable version of the employee, for use in message boxes
         public String toString()
         {
             return name + ", " + jobTitle;
